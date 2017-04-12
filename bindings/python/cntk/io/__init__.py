@@ -27,9 +27,6 @@ class MinibatchData(cntk_py.MinibatchData, ArrayMixin):
     '''
     Holds a minibatch of input data. This is never directly created, but
     only returned by :class:`MinibatchSource` instances.
-
-    Args:
-      TODO
     '''
 
     def __init__(self, value, num_sequences, num_samples, sweep_end):
@@ -135,14 +132,14 @@ class MinibatchSource(cntk_py.MinibatchSource):
         deserializers (a single deserializer or a `list`): deserializers to be used in the composite reader
         max_samples (`int`, defaults to :const:`cntk.io.INFINITELY_REPEAT`): The maximum number of input samples 
           (not 'label samples') the reader can produce. After this number has been reached, the reader 
-          returns empty minibatches on subsequent calls to GetNextMinibatch(). `max_samples` and `max_sweeps`
+          returns empty minibatches on subsequent calls to next_minibatch(). `max_samples` and `max_sweeps`
           are mutually exclusive, an exception will be raised if both have non-default values.
           **Important:** 
           Click :cntkwiki:`here <BrainScript-epochSize-and-Python-epoch_size-in-CNTK>`
           for a description of input and label samples.
         max_sweeps (`int`, defaults to :const:`cntk.io.INFINITELY_REPEAT`): The maximum number of of sweeps over 
           the input dataset After this number has been reached, the reader returns empty minibatches on 
-          subsequent calls to GetNextMinibatch(). `max_samples` and `max_sweeps` are mutually exclusive, 
+          subsequent calls to next_minibatch(). `max_samples` and `max_sweeps` are mutually exclusive, 
           an exception will be raised if both have non-default values.
         randomization_window_in_chunks (`int`, defaults to :const:`cntk.io.DEFAULT_RANDOMIZATION_WINDOW_IN_CHUNKS`): 
           size of the randomization window in chunks, non-zero value enables randomization. 

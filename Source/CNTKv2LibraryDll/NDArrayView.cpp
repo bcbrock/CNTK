@@ -257,7 +257,7 @@ namespace CNTK
             InvalidArgument("NDArrayView::CopyFrom: The source view shape '%S' is not same as the shape '%S' of this NDArrayView.", 
                             source.Shape().AsString().c_str(), Shape().AsString().c_str());
 
-        if (IsReadOnly())
+		if (IsReadOnly())
             RuntimeError("NDArrayView::CopyFrom: Cannot modify contents of a readonly NDArrayView.");
 
         switch (m_dataType)

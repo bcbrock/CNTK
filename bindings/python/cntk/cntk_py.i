@@ -35,6 +35,7 @@
 %rename(htk_mlf_deserializer) CNTK::HTKMLFDeserializer;
 %rename(_infer_outputs) CNTK::Function::InferOutputs;
 %rename(_stream_infos) CNTK::SwigMinibatchSource::StreamInfos(PyObject*);
+%rename(_next_minibatch) CNTK::SwigMinibatchSource::GetNextMinibatch;
 
 %rename(_none) CNTK::DictionaryValue::Type::None;
 
