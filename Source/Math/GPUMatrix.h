@@ -612,8 +612,7 @@ public:
         int format;
         stream >> matrixNameDummy >> format >> numRows >> numCols;
         ElemType* d_array = new ElemType[numRows * numCols];
-        for (size_t i = 0; i < numRows * numCols; ++i)
-            stream >> d_array[i];
+        stream.GetArray(d_array, numRows * numCols);
         stream.GetMarker(fileMarkerEndSection, std::wstring(L"EMAT"));
         us.SetValue(numRows, numCols, us.GetComputeDeviceId(), d_array, matrixFlagNormal | format);
         delete[] d_array;
@@ -631,8 +630,7 @@ public:
 
         stream << us.m_numRows << us.m_numCols;
         ElemType* pArray = us.CopyToArray();
-        for (size_t i = 0; i < us.GetNumElements(); ++i)
-            stream << pArray[i];
+        stream.PutArray(pArray, us.m_numRows * us.m_numCols);
         
         delete[] pArray;
 

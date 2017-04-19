@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include <stdint.h>
+#include <type_traits>
 #ifdef _WIN32
 #define NOMINMAX
 #include "Windows.h"
@@ -164,6 +165,19 @@ public:
         }
         return *this;
     }
+
+    // put array efficiently for binary files and primitive types
+    template <typename T>
+    File& PutArray(T* a, size_t n)
+    {
+        if (IsTextBased() || !is_arithmetic<T>::value)
+            for (int i = 0; i < n; i++)
+                *this << a[i];
+        else
+            fput(m_file, a, n);
+        return *this;
+    }
+        
     File& operator<<(const std::wstring& val);
     File& operator<<(const std::string& val);
     File& operator<<(FileMarker marker);
@@ -195,6 +209,18 @@ public:
         return *this;
     }
 
+    // get array efficiently for binary files and primitive types
+    template <typename T>
+    File& GetArray(T* a, size_t n)
+    {
+        if (IsTextBased() || !is_arithmetic<T>::value)
+            for (int i = 0; i < n; i++)
+                *this >> a[i];
+        else
+            fget(m_file, a, n);
+        return *this;
+    }
+        
     void WriteString(const char* str, int size = 0);                   // zero terminated strings use size=0
     void ReadString(char* str, int size);                              // read up to size bytes, or a zero terminator (or space in text mode)
     void WriteString(const wchar_t* str, int size = 0);                // zero terminated strings use size=0

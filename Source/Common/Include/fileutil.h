@@ -433,11 +433,23 @@ void fput(FILE* f, T v)
     fwriteOrDie(&v, sizeof(v), 1, f);
 }
 
+template <typename T>
+void fput(FILE* f, T* a, size_t n)
+{
+    fwriteOrDie(a, sizeof(T), n, f);
+}
+
 // template versions of put/get functions for binary files
 template <typename T>
 void fget(FILE* f, T& v)
 {
     freadOrDie((void*) &v, sizeof(v), 1, f);
+}
+
+template <typename T>
+void fget(FILE* f, T* a, size_t n)
+{
+    freadOrDie(a, sizeof(T), n, f);
 }
 
 // GetFormatString - get the format std::string for a particular type
